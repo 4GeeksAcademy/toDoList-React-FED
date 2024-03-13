@@ -1,14 +1,16 @@
-// ToDoList.jsx
-import React from 'react';
-import ToDoItem from './ToDoItem.jsx';
+import React from "react";
 
-const ToDoList = ({ tasks, onDeleteTask }) => (
-  <ul className="todo-list">
-    {tasks.map((task) => (
-      <ToDoItem key={task.id} task={task} onDeleteTask={onDeleteTask} />
-    ))}
-    {tasks.length === 0 && <p className="empty-list"> No tasks, add a task! </p>}
-  </ul>
-);
+const ToDoList = ({ tasks, onDeleteTask }) => {
+  return (
+    <ul>
+      {tasks.map((task) => (
+        <li key={task.id}>
+          {task.text}{" "}
+          <i className="fas fa-trash-alt" onClick={() => onDeleteTask(task.id)}></i>
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 export default ToDoList;

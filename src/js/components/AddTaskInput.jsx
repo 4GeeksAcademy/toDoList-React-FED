@@ -1,4 +1,3 @@
-// AddTaskInput.jsx
 import React from 'react';
 
 const AddTaskInput = ({ inputValue, onAddTask, onInputChange }) => (

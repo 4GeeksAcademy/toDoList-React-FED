@@ -1,18 +1,28 @@
-// index.js
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import "../styles/index.css"; // Import CSS from the styles folder
+import "../styles/index.css";
+
+const fontAwesomeURL = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css";
+const styleLink = document.createElement("link");
+styleLink.rel = "stylesheet";
+styleLink.href = fontAwesomeURL;
+document.head.appendChild(styleLink);
 
 import AddTaskInput from "./components/AddTaskInput.jsx";
 import ToDoList from "./components/ToDoList.jsx";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   const addTask = (text) => {
+    if (!text.trim()) {
+      alert("Please enter a task!");
+      return; 
+    }
+
     setTasks([...tasks, { id: Math.random(), text, completed: false }]);
-    setInputValue('');
+    setInputValue("");
   };
 
   const deleteTask = (id) => {
@@ -24,9 +34,15 @@ const App = () => {
   return (
     <div className="App">
       <h1>To-Do List</h1>
-      <AddTaskInput inputValue={inputValue} onAddTask={addTask} onInputChange={setInputValue} />
-      <ToDoList tasks={tasks} onDeleteTask={deleteTask} />
       <p>{getRemainingTasks()} tasks still to do</p>
+      <AddTaskInput
+        inputValue={inputValue}
+        onAddTask={addTask}
+        onInputChange={setInputValue}
+        pendingTasks={getRemainingTasks()}
+      />
+      <ToDoList tasks={tasks} onDeleteTask={deleteTask} />
+      
     </div>
   );
 };
@@ -35,5 +51,5 @@ ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('app')
+  document.getElementById("app")
 );

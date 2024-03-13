@@ -1,4 +1,3 @@
-// ToDoItem.jsx
 import React from 'react';
 
 const ToDoItem = ({ task, onDeleteTask }) => (
